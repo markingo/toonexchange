@@ -13,38 +13,43 @@ import { Badge } from '@/components/ui/badge';
 import { Linkedin, Github, Code2, Zap, ArrowRight, ArrowDown } from 'lucide-react';
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [shouldShowLoading, setShouldShowLoading] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     // Check if user has visited before (only runs on client)
     const hasVisited = sessionStorage.getItem('hasVisited');
     
     if (!hasVisited) {
-      setShouldShowLoading(true);
+      // First time visitor - show loading animation
+      setShowLoading(true);
       sessionStorage.setItem('hasVisited', 'true');
-      
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-      }, 3500); // Animation + content delay
-
-      return () => clearTimeout(timer);
     } else {
-      // Skip loading for returning visitors
-      setIsLoading(false);
+      // Returning visitor - skip loading and show content immediately
+      setShowContent(true);
     }
   }, []);
 
+  const handleLoadingComplete = () => {
+    setShowLoading(false);
+    setShowContent(true);
+  };
+
   return (
     <>
-      <AnimatePresence>
-        {isLoading && shouldShowLoading && (
-          <LoadingScreen onComplete={() => setIsLoading(false)} />
+      <AnimatePresence mode="wait">
+        {showLoading && (
+          <LoadingScreen key="loading-screen" onComplete={handleLoadingComplete} />
         )}
       </AnimatePresence>
 
-      {!isLoading && (
-        <div className="min-h-screen relative overflow-hidden bg-background">
+      {showContent && (
+        <motion.div 
+          className="min-h-screen relative overflow-hidden bg-background"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           {/* Navigation */}
           <Navigation />
 
@@ -440,7 +445,7 @@ export default function Home() {
               </div>
             </div>
           </footer>
-        </div>
+        </motion.div>
       )}
     </>
   );

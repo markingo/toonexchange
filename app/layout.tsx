@@ -30,7 +30,14 @@ export const metadata: Metadata = {
     title: "Toon Exchange - Format Conversion & Token Optimization",
     description: "Convert between multiple data formats and optimize LLM token usage by understanding how TOON reduces token usage.",
     type: "website",
-    images: [{ url: '/toon_logo.png' }],
+    images: [
+      {
+        url: '/toon_exchange_og.png',
+        width: 1200,
+        height: 630,
+        alt: 'TOON Exchange - Token-Oriented Object Notation',
+      },
+    ],
   },
 };
 

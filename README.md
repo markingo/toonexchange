@@ -1,5 +1,9 @@
 # TOON Exchange
 
+<p align="center">
+  <img src="./public/toon_exchange_og.png" alt="TOON Exchange - Token-Oriented Object Notation" width="100%">
+</p>
+
 A professional format exchange platform for modern developers. Convert and optimize data formats with real-time token analysis.
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)

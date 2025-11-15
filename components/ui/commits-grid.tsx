@@ -1,4 +1,4 @@
-"use client"
+"use client" 
 
 import * as React from "react"
 import { useState, useEffect } from "react"
@@ -61,18 +61,18 @@ export const CommitsGrid = ({ text }: { text: string }) => {
   } = generateHighlightedCells(text);
 
   const getRandomColor = () => {
-    // Light mode - use foreground color (navy) to match TOON art style
+    // Light mode - use green commit colors
     const lightModeColors = [
-      "rgb(27, 58, 92)", // navy - primary
-      "rgb(82, 100, 117)", // lighter navy
-      "rgb(50, 75, 100)", // medium navy
+      "#48d55d",
+      "#016d32",
+      "#0d4429"
     ];
     
-    // Dark mode - use beige to match the theme
+    // Dark mode - use lighter green colors for better visibility
     const darkModeColors = [
-      "rgb(245, 230, 211)", // beige - primary
-      "rgb(228, 213, 193)", // darker beige
-      "rgb(200, 185, 165)", // muted beige
+      "#6ee7b7", // lighter green
+      "#34d399", // medium green
+      "#10b981"  // emerald green
     ];
     
     const commitColors = theme === 'dark' ? darkModeColors : lightModeColors;
@@ -86,7 +86,7 @@ export const CommitsGrid = ({ text }: { text: string }) => {
 
   return (
     <section
-      className="w-full max-w-4xl bg-card border grid p-2 sm:p-4 gap-1 sm:gap-1.5 rounded-[10px] sm:rounded-[15px] shadow-2xl"
+      className="w-full max-w-xl bg-card border grid p-1.5 sm:p-3 gap-0.5 sm:gap-1 rounded-[10px] sm:rounded-[15px]"
       style={{
         gridTemplateColumns: `repeat(${gridWidth}, minmax(0, 1fr))`,
         gridTemplateRows: `repeat(${gridHeight}, minmax(0, 1fr))`,
@@ -100,10 +100,10 @@ export const CommitsGrid = ({ text }: { text: string }) => {
           <div
             key={index}
             className={cn(
-              `border border-border/30 h-full w-full aspect-square rounded-[5px] sm:rounded-[4px] transition-colors`,
+              `border h-full w-full aspect-square rounded-[4px] sm:rounded-[3px]`,
               isHighlighted ? "animate-highlight" : "",
               shouldFlash ? "animate-flash" : "",
-              !isHighlighted && !shouldFlash ? "bg-muted/20" : ""
+              !isHighlighted && !shouldFlash ? "bg-card" : ""
             )}
             style={
               {
