@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FormatPlayground } from '@/components/format-playground';
@@ -12,12 +12,17 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 import { FileJson, FileCode, FileSpreadsheet, FileText, Code, Zap } from 'lucide-react';
 
-export default function PlaygroundPage() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [shouldShowLoading, setShouldShowLoading] = useState(false);
+function PlaygroundContent() {
   const searchParams = useSearchParams();
   const source = searchParams.get('source');
   const target = searchParams.get('target');
+  
+  return <FormatPlayground initialSource={source || undefined} initialTarget={target || undefined} />;
+}
+
+export default function PlaygroundPage() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [shouldShowLoading, setShouldShowLoading] = useState(false);
 
   useEffect(() => {
     // Check if user has visited before (only runs on client)
@@ -105,7 +110,9 @@ export default function PlaygroundPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <FormatPlayground initialSource={source || undefined} initialTarget={target || undefined} />
+              <Suspense fallback={<div className="text-center py-8">Loading playground...</div>}>
+                <PlaygroundContent />
+              </Suspense>
             </motion.div>
 
             {/* Features Grid */}

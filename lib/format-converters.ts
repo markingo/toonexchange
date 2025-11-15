@@ -50,16 +50,25 @@ export function toonToCsv(toon: string): string {
     throw new Error('TOON data must be an array with at least one object');
   }
 
-  const headers = Object.keys(data[0]);
+  const firstItem = data[0];
+  if (!firstItem || typeof firstItem !== 'object' || Array.isArray(firstItem)) {
+    throw new Error('TOON data must be an array of objects');
+  }
+
+  const headers = Object.keys(firstItem);
   const csvLines = [headers.join(',')];
 
-  data.forEach(obj => {
+  data.forEach(item => {
+    if (!item || typeof item !== 'object' || Array.isArray(item)) {
+      return; // Skip invalid items
+    }
+    const obj = item as Record<string, unknown>;
     const values = headers.map(header => {
       const value = obj[header];
       if (typeof value === 'string' && (value.includes(',') || value.includes('"'))) {
         return `"${value.replace(/"/g, '""')}"`;
       }
-      return value;
+      return String(value ?? '');
     });
     csvLines.push(values.join(','));
   });
