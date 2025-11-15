@@ -396,18 +396,32 @@ export default function Home() {
                 {/* Creator */}
                 <div className="space-y-4">
                   <h3 className="font-bold text-lg border-b-2 border-foreground pb-2">Created By</h3>
-                  <a 
-                    href="https://linkedin.com/in/mark-mate" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-3 border-2 border-foreground bg-card hover:bg-foreground/10 font-bold transition-all"
-                  >
-                    <Linkedin className="w-5 h-5" />
-                    <div>
-                      <p className="font-bold">Mark Mate</p>
-                      <p className="text-xs">Connect on LinkedIn</p>
-                    </div>
-                  </a>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <a 
+                      href="https://linkedin.com/in/mark-mate" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-3 border-2 border-foreground bg-card hover:bg-foreground/10 font-bold transition-all"
+                    >
+                      <Linkedin className="w-5 h-5" />
+                      <div>
+                        <p className="font-bold">Mark Mate</p>
+                        <p className="text-xs">Connect on LinkedIn</p>
+                      </div>
+                    </a>
+                    <a 
+                      href="https://github.com/markingo/toonexchange" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-3 border-2 border-foreground bg-card hover:bg-foreground/10 font-bold transition-all"
+                    >
+                      <Github className="w-5 h-5" />
+                      <div>
+                        <p className="font-bold">GitHub</p>
+                        <p className="text-xs">View Repository</p>
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
 
